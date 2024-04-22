@@ -1,0 +1,48 @@
+ --filter to keep only murders that happened in SQL city on 15/01/2018--
+Select *
+from crime_scene_report
+where date = 20180115
+	  and type = 'murder'
+	  and city ='SQL City'
+;
+--Find the witness who lives on the last house on Northwestern drive--
+select * 
+	,max(address_number)
+from person
+where address_street_name = 'Northwestern Dr'
+;
+-- Find the second witness who's first name is Annabel and lives on Franklyn Drive==
+select * 
+from person
+where name like 'Annabel%'
+	and address_street_name = 'Franklin Ave'
+;
+--Filter to get the interview from the two witness'--
+select * 
+from interview
+where person_id= 14887 or person_id= 16371
+;
+--Filter to gold memembers and number plate--
+select *
+from person p
+inner join drivers_license dl
+	on dl.id = p.license_id
+inner join get_fit_now_member gfnm
+	on p.id= gfnm.person_id
+inner join interview I
+	on I.person_id = p.id 
+where gfnm.membership_status= 'gold'
+	and dl.plate_number like '%H42W%'
+;
+--Filter to find the mastermind--
+select *
+from person p
+inner join drivers_license dl
+	on p.license_id = dl.id
+where height = 65
+	and car_make = 'Tesla'
+	and gender = 'female'
+select *
+from facebook_event_checkin
+where date like'201712%'
+	and person_id =7881
